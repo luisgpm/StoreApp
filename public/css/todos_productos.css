@@ -1,0 +1,17 @@
+
+
+
+.producto__icon__delete{
+    position: absolute;
+    top: 25px;
+    right:  40px;
+    
+}
+.producto__icon__edit{
+    position: absolute;
+    top: 25px;
+    right: 15px;
+}
+.fa-solid{
+    color: #FFF;
+}
