@@ -1,8 +1,6 @@
-@if(session("editProd"))
-  @php
-    $producto = session()->get('producto');
-  @endphp
-  <form action="{{route('producto.update', $producto)}}" method="POST">
+  <form id="editForm">
+    {{csrf_field()}}
+    {{method_field('PATCH')}}
     <div class="modal fade" id="editProducto" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
@@ -10,27 +8,33 @@
               <h5 class="modal-title" id="exampleModalLabel">editar Producto</h5>
             </div>
             <div class="modal-body">
-                @csrf
-                @method('PATCH')
                 <div class="form-group">
+                  <input type="number" id="idEdit" name='id' hidden class="form-control">
+                </div>
+                <div class="form-group" id="form-group-sku">
                   <label for='sku'>Sku</label>
-                  <input type="text" id="sku" name='sku' class="form-control" placeholder="H421" value="{{ old('sku', $producto->sku)}}">
+                  <input type="text" id="skuEdit" name='sku' pattern="^[A-Z][\d]{3}$" class="form-control" placeholder="H421">
+                   <span class="help-block alert-danger"></span>
                 </div>
-                <div class="form-group">
+                <div class="form-group" id="form-group-titulo">
                   <label for="titulo">titulo</label>
-                  <input type="text" class="form-control" name='titulo' id="titulo" placeholder="titulo" value="{{ old('titulo', $producto->titulo)}}">
+                  <input type="text" class="form-control" name='titulo' id="tituloEdit" placeholder="titulo">
+                  <span class="help-block alert-danger"></span>
                 </div>
-                <div class="form-group">
+                <div class="form-group" id="form-group-cantidad">
                   <label for="cantidad">cantidad</label>
-                  <input type="number" class="form-control" name='cantidad' id="cantidad" placeholder="cantidad" value="{{ old('cantidad', $producto->cantidad)}}">
+                  <input type="number" class="form-control" name='cantidad' min="0" id="cantidadEdit" placeholder="cantidad" >
+                  <span class="help-block alert-danger"></span>
                 </div>
-                <div class="form-group">
+                <div class="form-group" id="form-group-precio">
                   <label for="precio">precio</label>
-                  <input type="number" class="form-control" id="precio" name="precio" placeholder="precio" value="{{ old('precio', $producto->precio)}}">
+                  <input type="number" class="form-control" id="precioEdit" min="0" name="precio" placeholder="precio">
+                  <span class="help-block alert-danger"></span>
                 </div>
-                <div class="form-group">
+                <div class="form-group" id="form-group-proveedor">
                   <label for="proveedor">proveedor</label>
-                  <input type="text" class="form-control" id="proveedor" name="proveedor" placeholder="proveedor" value="{{ old('proveedor ', $producto->proveedor)}}">
+                  <input type="text" class="form-control" id="proveedorEdit" name="proveedor" placeholder="proveedor">
+                  <span class="help-block alert-danger"></span>
                 </div>
             </div>
             <div class="modal-footer">
@@ -41,4 +45,3 @@
         </div>
     </div>
   </form> 
-@endif

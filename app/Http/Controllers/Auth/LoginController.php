@@ -42,11 +42,10 @@ class LoginController extends Controller
      public function login(Request $request)
     {   
         $input = $request->all();
-   
-        $this->validate($request, [
+        $this->validate($request,  [ 
             'email' => 'required|email',
             'password' => 'required',
-        ]);
+        ]);        
    
         if(auth()->attempt(array('email' => $input['email'], 'password' => $input['password'])))
         {
@@ -57,7 +56,7 @@ class LoginController extends Controller
             }
         }else{
             return redirect()->route('login')
-                ->with('error','Email-Address And Password Are Wrong.');
+                ->with('error','Se ha producido un problema al iniciar sesión. Comprueba el correo electrónico y la contraseña o crea una cuenta.');
         }
           
     }

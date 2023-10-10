@@ -7,11 +7,14 @@
                 <div class="card-header d-flex justify-content-between align-items-center ">
                     <h3 class="">Productos</h3>
                     @if(Auth::user()->rol== 1)
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createModal">
-                      Agregar productos
-                    </button>
+                        <a type="button" class="btn btn-primary  create_btn"  href="#"> Agregar productos</a>
                     @endif
                 </div>
+                @error('sku')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
                 <table class="table">
                     <thead>
                         <tr>
@@ -24,12 +27,17 @@
                     <tbody>
                         @foreach($productos as $producto)
                         <tr>
-                            <th>{{$producto->titulo}}</th>
+                            <td hidden>{{$producto->id}}</td>
+                            <td hidden> {{$producto->sku}}</td>
+                            <td>{{$producto->titulo}}</td>
                             <td>{{$producto->cantidad}}</td>
                             <td>{{$producto->precio}}</td>
+                            <td hidden>{{$producto->proveedor}}</td>
+                            <td hidden>{{$producto->created_at}}</td>
+                            <td hidden>{{$producto->updated_at}}</td>
                             <td>
                                 @if(Auth::user()->rol== 1)
-                                    <a type="button" class="btn btn-outline-dark float-right m-1"  href="{{route('producto.edit', $producto)}}">
+                                    <a type="button" class="btn btn-outline-dark float-right m-1 editbtn"  href="#">
                                          <i class="fa-solid fa-pen-to-square fa-xl"></i>
                                     </a>
                                     <form method="POST" action="{{route('producto.destroy', $producto)}}">
@@ -39,7 +47,7 @@
                                             <i class="fa-solid fa-trash fa-xl"></i>
                                         </button>
                                     </form>
-                                    <a type="button" class="btn btn-outline-success float-right m-1" href="{{route('producto.show', $producto)}}">
+                                    <a type="button" class="btn btn-outline-success float-right m-1 viewbtn" href="#" >
                                         <i class="fa-solid fa-expand fa-xl"></i>    
                                     </a>
                                 @endif

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ProductoRequest;
 use App\Models\Producto;
 use Illuminate\Http\Request;
 
@@ -33,11 +34,10 @@ class ProductoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ProductoRequest $request)
     {
         $producto = new Producto($request->all());
         $producto->save();
-        return redirect()->back();
     }
 
     /**
@@ -72,7 +72,6 @@ class ProductoController extends Controller
     public function update(Request $request, Producto $producto)
     {   
         $producto->update($request->all());
-        return redirect()->back();
     }
 
     /**
